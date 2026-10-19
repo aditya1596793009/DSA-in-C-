@@ -11,5 +11,4 @@ int main(){
     per = 2*(l+b);
     if(area>per) cout<<"Area is greater";
     else cout<<"Perimeter is greater";
-
 }
