@@ -1,0 +1,52 @@
+class Solution {
+    ListNode* reverseList(ListNode* head) {
+        if(head == NULL || head->next == NULL) return head;
+        ListNode* prev = NULL;
+        ListNode* curr = head;
+        while(curr != NULL){
+            ListNode* fwd = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = fwd;
+        }
+        return prev;
+    }
+    int length(ListNode* head){
+        int len = 0;
+        ListNode* temp = head;
+        while(temp != NULL){
+            temp = temp->next;
+            len++;
+        }
+        return len;
+    }
+public:
+    void reorderList(ListNode* head) {
+        if(head == NULL or head->next == NULL) return;
+        int n = length(head);
+        ListNode* temp = head;
+        for(int i=1; i<n/2; i++){
+            temp = temp->next;
+        }
+        ListNode* a = head;
+        ListNode* b = temp->next;
+        temp->next = NULL;
+        b = reverseList(b);
+
+        ListNode* dum = new ListNode(-1);
+        ListNode* x = dum;
+        ListNode* t1 = a;
+        ListNode* t2 = b;
+
+        while(t1 != NULL){
+            x->next = t1;
+            x = x->next;
+            t1 = t1->next;
+            x->next = t2;
+            x = x->next;
+            t2 = t2->next;
+        }
+        if(t2 != NULL) x->next = t2;
+        head = dum->next;
+    }
+};
