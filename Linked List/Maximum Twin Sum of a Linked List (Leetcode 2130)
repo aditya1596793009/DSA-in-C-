@@ -1,1 +1,67 @@
+class Solution {
+    ListNode* reverseList(ListNode* head) {
+        if(head == NULL || head->next == NULL) return head;
+        ListNode* prev = NULL;
+        ListNode* curr = head;
+        while(curr != NULL){
+            ListNode* fwd = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = fwd;
+        }
+        return prev;
+    }
+public:
+    int pairSum(ListNode* head) {
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast->next->next != NULL){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        ListNode* a = head;
+        ListNode* b = slow->next;
+        b = reverseList(b);
+        slow->next = NULL;
 
+        ListNode* t1 = a;
+        ListNode* t2 = b;
+        int twinsum = 0;
+        while(t2 != NULL){
+            int sum = t1->val + t2->val;
+            if(twinsum<sum) twinsum = sum;
+            t1 = t1->next;
+            t2 = t2->next;
+        }
+        return twinsum;
+    }
+
+
+    // Correct Solution but Time Limit Exceeded
+//     int length(ListNode* head){
+//         int len = 0;
+//         ListNode* temp = head;
+//         while(temp != NULL){
+//             temp = temp->next;
+//             len++;
+//         }
+//         return len;
+//     }
+//     int twin(ListNode* head, int n){
+//         ListNode* temp = head;
+//         for(int i=0; i<n; i++){
+//             temp = temp->next;
+//         }
+//         return temp->val;
+//     }
+// public:
+//     int pairSum(ListNode* head) {
+//         int n = length(head);
+//         int twinsum =0;
+//         for(int i=0; i<n/2; i++){
+//             int sum = twin(head,i) + twin(head,n-1-i);
+//             if(sum>twinsum) twinsum = sum;
+//         }
+//         return twinsum;
+//     }
+};
