@@ -1,0 +1,28 @@
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        if(list1 == NULL) return list2;
+        if(list2 == NULL) return list1;
+        if(list1 == NULL && list2 == NULL) return NULL;
+        ListNode* dum = new ListNode(-1);
+        ListNode* i = list1;
+        ListNode* j = list2;
+        ListNode* k = dum;
+        while(i!=NULL && j!=NULL){
+            if(i->val<j->val){
+                k->next = i;
+                i = i->next;
+                k = k->next;
+            }
+            else {
+                k->next = j;
+                j = j->next;
+                k = k->next;
+            }
+
+            if(i == NULL) k->next = j;
+            if(j == NULL) k->next = i;
+        }
+        return dum->next;
+    }
+};
