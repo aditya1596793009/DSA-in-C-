@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int calPoints(vector<string>& st) {
+        stack<int> s;
+        for(int i=0; i<st.size(); i++){
+            if(st[i] != "C" && st[i] != "D" && st[i] != "+")
+                s.push(stoi(st[i]));
+            else if(st[i]=="C") s.pop();
+            else if(st[i]=="D") s.push(2*s.top());
+            else if(st[i]=="+"){
+                int x = 0;
+                int u = s.top();
+                x+=u;
+                s.pop();
+                x+=s.top();
+                s.push(u);
+                s.push(x);
+            }
+        }
+        int sum = 0;
+        while(s.size()>0){
+            sum += s.top();
+            s.pop();
+        }
+        return sum;
+    }
+};
